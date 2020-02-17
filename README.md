@@ -1,4 +1,4 @@
-# DeadSimpleAnalytics
+# Token Game
 ## Building/Running
 
 `docker build . -t tokengame`
