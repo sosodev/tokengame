@@ -16,6 +16,8 @@
     "svelte": "^3.19.2"
   },
   "dependencies": {
+    "highlight.js": "^9.18.1",
+    "js-beautify": "^1.10.3",
     "sirv-cli": "^0.4.4",
     "svelte-router-spa": "^5.4.3"
   }

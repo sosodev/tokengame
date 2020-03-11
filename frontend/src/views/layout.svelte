@@ -7,6 +7,13 @@
     const params = {};
 </script>
 
+<style>
+    .app {
+        min-height: 100%;
+        position: relative;
+    }
+</style>
+
 <div class="app">
     <Navbar/>
     <Route {currentRoute} {params} />
