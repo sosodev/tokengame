@@ -17,7 +17,7 @@
         </div>
         <div class="navbar-menu" class:is-active={expanded}>
             <div class="navbar-start">
-                <a class="navbar-item">
+                <a class="navbar-item" href="/">
                     Home
                 </a>
                 <a class="navbar-item">
