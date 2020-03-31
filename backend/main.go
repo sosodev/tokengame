@@ -1,23 +1,29 @@
 package main
 
 import (
-	"log"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/tokengame/backend/database"
 )
 
+/*
+	Some useful documentation links :)
+
+	Go: https://golang.org/doc/
+	Echo (backend framework): https://echo.labstack.com/guide
+	GORM (simple ORM for Go): https://gorm.io/docs/
+*/
+
 func main() {
+	// create the server object
+	e := echo.New()
+
 	// run the database migrations
 	// fail immediately on error
 	err := database.RunDatabaseMigrations()
 	if err != nil {
-		log.Fatal(err)
+		e.Logger.Fatal(err)
 	}
-
-	// create the server object
-	e := echo.New()
 
 	// enable static asset serving on the server
 	// but also route 404's to index.html
