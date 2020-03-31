@@ -6,9 +6,7 @@ WORKDIR /backend
 
 ENV GO111MODULE=on
 
-# have to enable CGO for sqlite3 support and add some hacky external linking flags
-RUN CGO_ENABLED=1 GOOS=linux go build -a -o app -ldflags '-linkmode external -w -extldflags "-static"'
-
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o app
 
 # Build the frontend with the node image
 FROM node:13.2 AS frontend-builder
@@ -24,9 +22,6 @@ RUN npm run build
 FROM alpine:latest
 
 RUN apk --no-cache add ca-certificates
-
-# for the CGO stuffs
-RUN apk add libc6-compat
 
 WORKDIR /root/
 COPY --from=backend-builder /backend/app .
