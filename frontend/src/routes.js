@@ -1,7 +1,7 @@
 import Layout from './views/layout.svelte';
 
 import Index from './views/index.svelte';
-import BubbleSort from './views/bubble-sort.svelte';
+import Challenge from './views/challenge.svelte';
 
 const routes = [
     {
@@ -9,8 +9,8 @@ const routes = [
         component: Index,
         layout: Layout
     }, {
-        name: '/challenges/bubble_sort',
-        component: BubbleSort,
+        name: '/challenges/:id',
+        component: Challenge,
         layout: Layout
     }
 ];
