@@ -55,7 +55,7 @@ func GetChallenge(c echo.Context) error {
 
 	challenge := &models.Challenge{}
 	// Get the first challenge with the matching ID
-	if err = db.First(challenge, id).Error; err != nil {
+	if err = db.Preload("Highscores").First(challenge, id).Error; err != nil {
 		return err
 	}
 

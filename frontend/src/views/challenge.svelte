@@ -32,6 +32,7 @@
     let user_code = "";
     let token_page = 0;
     let budget = 200;
+    let move_stack = [];
 
     function forward() {
         if (token_page * 5 < tokens.length - 1) {
@@ -52,8 +53,39 @@
     }
 
     function useToken(token) {
+        move_stack.push({
+            code: user_code,
+            token: token,
+        })
+
         user_code += token;
         budget -= calculateCost(token);
+    }
+
+    function undoToken() {
+        let last_move = move_stack.pop()
+        if (last_move) {
+            user_code = last_move.code;
+            budget += calculateCost(last_move.token);
+        }
+    }
+
+    // Run the testcases against the user's code
+    function runTests() {
+        let full_code = head + user_code + foot;
+        eval.call(window, full_code);
+
+        let passed = true;
+
+        // run the test cases and fail if the return is false
+        testcases.forEach(test => {
+            if (!eval.call(window, test)) {
+                passed = false;
+                return;
+            }
+        });
+
+        finished = passed;
     }
 </script>
 
@@ -118,10 +150,10 @@
             </div>
         </div>
     </nav>
-    <button class="button is-warning is-large" on:click={() => finished = true }>
+    <button class="button is-warning is-large" on:click={runTests}>
         Submit
     </button>
-    <button class="button is-info is-large">
+    <button class="button is-info is-large" on:click={undoToken}>
         Undo
     </button>
 </div>

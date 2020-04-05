@@ -2,7 +2,7 @@ import Layout from './views/layout.svelte';
 
 import Index from './views/index.svelte';
 import Challenge from './views/challenge.svelte';
-import leaderboards from './views/leaderboards.svelte';
+import Leaderboard from './views/leaderboard.svelte';
 
 const routes = [
     {
@@ -14,8 +14,8 @@ const routes = [
         component: Challenge,
         layout: Layout
     }, {
-        name: '/leaderboards',
-        component: leaderboards,
+        name: '/leaderboards/:id',
+        component: Leaderboard,
         layout: Layout
     }
 ];
