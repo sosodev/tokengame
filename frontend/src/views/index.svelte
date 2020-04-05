@@ -10,6 +10,12 @@
     }
 </style>
 
+<script>
+    async function getChallenges() {
+        return fetch('/api/challenges').then(resp => resp.json())
+    }
+</script>
+
 <section class="hero">
     <div class="hero-body">
         <div class="container">
@@ -20,15 +26,21 @@
                 <p class="panel-heading">
                     Challenges
                 </p>
-                <a class="panel-block" href="/challenges/bubble_sort">
-                    #1 - Bubble Sort
-                </a>
-                <a class="panel-block">
-                    #2 - Fibonacci Sequence
-                </a>
-                <a class="panel-block">
-                    #3 - Graph Traversal
-                </a>
+                {#await getChallenges()}
+                    <a class="panel-block" href="/">
+                        Loading challenges...
+                    </a>
+                {:then json}
+                    {#each json.challenges as challenge}
+                        <a class="panel-block" href="/challenges/{challenge.ID}">
+                            #{challenge.ID} - {challenge.title}
+                        </a>
+                    {/each}
+                {:catch error}
+                    <a class="panel-block" href="/">
+                        Failed to fetch challenges... Try refreshing the page shortly
+                    </a>
+                {/await}
             </nav>
         </div>
     </div>

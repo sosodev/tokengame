@@ -22,3 +22,19 @@ func RunDatabaseMigrations() error {
 	db.AutoMigrate(&models.Challenge{})
 	return nil
 }
+
+// SeedDatabase runs all of the models seed functions
+// Returns the first error if one occurred
+func SeedDatabase() error {
+	db, err := GetDatabaseConnection()
+	if err != nil {
+		return err
+	}
+
+	err = models.SeedChallenges(db)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
