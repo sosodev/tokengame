@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/tokengame/backend/challenge"
 	"github.com/tokengame/backend/database"
+	"github.com/tokengame/backend/highscore"
 )
 
 /*
@@ -36,6 +37,8 @@ func main() {
 	api := e.Group("api")
 	api.GET("/challenges", challenge.GetChallenges) // routes "/api/challenges" to our challenge.GetChallenges handler
 	api.GET("/challenges/:id", challenge.GetChallenge)
+	api.GET("/highscores", highscore.GetHighscores)
+	api.POST("/highscores/new", highscore.PostHighscore)
 
 	// enable static asset serving on the server
 	// but also route 404's to index.html

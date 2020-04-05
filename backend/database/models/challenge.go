@@ -8,11 +8,12 @@ import (
 // Challenge database model
 type Challenge struct {
 	gorm.Model
-	Title     string         `json:"title"`                                // Title of the challenge
-	Head      string         `json:"head"`                                 // Initial code block before the user's code (e.g. function declaration)
-	Foot      string         `json:"foot"`                                 // Code block after the user's code (e.g. return statement)
-	Tokens    pq.StringArray `json:"tokens" gorm:"type:varchar(100)[]"`    // The pool of tokens for the challenge
-	Testcases pq.StringArray `json:"testcases" gorm:"type:varchar(100)[]"` // A set of tests, as functions, to be run after the user's code, should return a boolean indicating success
+	Title      string         `json:"title"`                                // Title of the challenge
+	Head       string         `json:"head"`                                 // Initial code block before the user's code (e.g. function declaration)
+	Foot       string         `json:"foot"`                                 // Code block after the user's code (e.g. return statement)
+	Tokens     pq.StringArray `json:"tokens" gorm:"type:varchar(100)[]"`    // The pool of tokens for the challenge
+	Testcases  pq.StringArray `json:"testcases" gorm:"type:varchar(100)[]"` // A set of tests, as functions, to be run after the user's code, should return a boolean indicating success
+	Highscores []Highscore    `json:"highscores"`
 }
 
 // SeedChallenges seeds the challenges table with some basic data

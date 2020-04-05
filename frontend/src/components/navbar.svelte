@@ -20,7 +20,7 @@
                 <a class="navbar-item" href="/">
                     Home
                 </a>
-                <a class="navbar-item">
+                <a class="navbar-item" href="/leaderboards">
                     Leaderboards
                 </a>
             </div>
