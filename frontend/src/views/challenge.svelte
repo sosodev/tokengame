@@ -1,6 +1,7 @@
 <script>
     export let currentRoute;
 
+    import { onMount, onDestroy } from 'svelte';
     import Token from '../components/token.svelte';
     import Modal from '../components/modal.svelte';
 
@@ -21,6 +22,27 @@
         challengeData = data;
     });
 
+    let seconds = 0;
+    onMount(() => {
+        let ticker = setInterval(() => {
+            seconds += 1;
+        }, 1000);
+
+        let keyboardEvent = document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 13) {
+                if (searched_tokens.length === 1) {
+                    useToken(searched_tokens[0]);
+                    search_input = "";
+                }
+            }
+        });
+
+        onDestroy(() => {
+            document.removeEventListener(keyboardEvent);
+            clearInterval(ticker);
+        });
+    });
+
     $: title = challengeData.title;
     $: head = challengeData.head;
     $: foot = challengeData.foot;
@@ -33,6 +55,29 @@
     let token_page = 0;
     let budget = 200;
     let move_stack = [];
+    let search_input = "";
+    $: searched_tokens = tokens.filter(el => el.includes(search_input))
+
+    // split the tokens into subsections
+    let column_width = 6;
+    let columns = [];
+    $: {
+        columns = [];
+        let column = [];
+        let j = 0;
+        for (let i = 0; i < searched_tokens.length; i++) {
+            if (j < column_width) {
+                column.push(searched_tokens[i]);
+                j++;
+            } else {
+                columns.push(column);
+                column = [];
+                j = 0;
+            }
+        }
+        columns.push(column);
+        columns = columns;
+    }
 
     function forward() {
         if (token_page * 5 < tokens.length - 1) {
@@ -120,6 +165,11 @@
     code {
         font-size: .9rem;
     }
+
+    .token-box {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
 </style>
 
 <div class="container" style="padding: 1rem;">
@@ -131,25 +181,20 @@
     </h3>
     <hr/>
 <pre><code class="hljs javascript">{@html code}</code></pre>
-    <nav class="level has-background-grey-lighter">
-        <div class="level-item">
-            <div class="button" on:click={backward}>
-                &lt;-
-            </div>
+    <div class="token-box has-background-grey-light">
+    <input class="input" type="text" placeholder="Search for a token" bind:value={search_input}>
+    {#each columns as column}
+        <div class="columns">
+            {#each column as token}
+                <div class="column">
+                    <Token cost="{calculateCost(token)}" on:click={() => useToken(token)}>
+                        {token}
+                    </Token>
+                </div>
+            {/each}
         </div>
-        {#each tokens.slice(token_page * 5, (token_page + 1) * 5) as token}
-            <div class="level-item">
-                <Token cost="{calculateCost(token)}" on:click={() => useToken(token)}>
-                    {token}
-                </Token>
-            </div>
-        {/each}
-        <div class="level-item">
-            <div class="button is-warning" on:click={forward}>
-                -&gt;
-            </div>
-        </div>
-    </nav>
+    {/each}
+    </div>
     <button class="button is-warning is-large" on:click={runTests}>
         Submit
     </button>
