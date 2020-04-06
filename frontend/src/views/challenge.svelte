@@ -53,9 +53,12 @@
     let finished = false;
     let user_code = "";
     let token_page = 0;
-    let budget = 200;
+    let initial_budget = 500;
+    let budget = initial_budget;
+    let score = 0;
     let move_stack = [];
     let search_input = "";
+    let nickname = "";
     $: searched_tokens = tokens.filter(el => el.includes(search_input))
 
     // split the tokens into subsections
@@ -66,8 +69,8 @@
         let column = [];
         let j = 0;
         for (let i = 0; i < searched_tokens.length; i++) {
-            if (j < column_width) {
-                column.push(searched_tokens[i]);
+            column.push(searched_tokens[i]);
+            if (j < column_width - 1) {
                 j++;
             } else {
                 columns.push(column);
@@ -130,7 +133,24 @@
             }
         });
 
+        if (finished) {
+            score = Math.pow((initial_budget / budget), 20) - seconds;
+        }
+
         finished = passed;
+    }
+
+    function submitHighscore() {
+        fetch('/api/highscores/new', {
+            method: 'POST',
+            body: JSON.stringify({
+                nickname: nickname,
+                score: score,
+                challenge_id: currentRoute.namedParams.id,
+            }),
+        }).then(resp => resp.json()).then(data => {
+            window.location.href = '/leaderboards/' + data.challenge_id;
+        });
     }
 </script>
 
@@ -210,16 +230,16 @@
                 You finished the {title} challenge! 🎉
             </h2>
             <h3 class="subtitle">
-                Final Score: 3962
+                Final Score: {score}
             </h3>
             <div class="field-body">
                 <div class="field">
                     <div class="control is-expanded">
-                        <input class="input" type="text" placeholder="your nickname">
+                        <input class="input" type="text" placeholder="your nickname" bind:value={nickname}>
                     </div>
                 </div>
             </div>
-            <button class="button is-warning">
+            <button class="button is-warning" on:input={submitHighscore}>
                 Post Highscore
             </button>
         </div>
