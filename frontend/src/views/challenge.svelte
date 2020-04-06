@@ -60,7 +60,7 @@
     let move_stack = [];
     let search_input = "";
     let nickname = "";
-    $: searched_tokens = tokens.filter(el => el.includes(search_input))
+    $: searched_tokens = tokens.filter(el => el.includes(search_input));
 
     // split the tokens into subsections
     let column_width = 6;
