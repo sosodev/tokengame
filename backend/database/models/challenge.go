@@ -84,7 +84,7 @@ Return the nth number. */function fib(n) {
 		Foot: "}",
 		Tokens: []string{
 			"return current",
-			"return 1;",
+			"return n;",
 			"return ",
 			"n >= 0",
 			"n <= 1",
@@ -110,7 +110,7 @@ Return the nth number. */function fib(n) {
 			"-2",
 		},
 		Testcases: []string{
-			"function test1() { return JSON.stringify([fib(5)]) === JSON.stringify([3]) }; test1();",
+			"function test1() { return fib(5) === 3};test1();",
 		},
 	})
 
