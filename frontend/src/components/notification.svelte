@@ -2,6 +2,6 @@
     export let text;
 </script>
 
-<div id="notification" class="notification is-error">
+<div id="notification" class="notification is-danger">
     {text}
 </div>
