@@ -4,6 +4,7 @@
     import { onMount, onDestroy } from 'svelte';
     import Token from '../components/token.svelte';
     import Modal from '../components/modal.svelte';
+    import Notification from '../components/notification.svelte';
 
     import beautify from 'js-beautify';
     import hljs from 'highlight.js/lib/highlight';
@@ -118,6 +119,8 @@
         }
     }
 
+    let failed_test = "";
+    $: failed_test_message = "Sorry, but it looks like your code failed this test: " + failed_test;
     // Run the testcases against the user's code
     function runTests() {
         let full_code = head + user_code + foot;
@@ -129,6 +132,7 @@
         testcases.forEach(test => {
             if (!eval.call(window, test)) {
                 passed = false;
+                failed_test = test;
                 return;
             }
         });
@@ -173,11 +177,6 @@
         font-size: 1.2rem;
     }
 
-    nav {
-        padding-top: 1%;
-        padding-bottom: 1%;
-    }
-
     input {
         margin-bottom: 1rem;
     }
@@ -193,6 +192,9 @@
 </style>
 
 <div class="container" style="padding: 1rem;">
+    {#if failed_test !== ""}
+    <Notification text={failed_test_message}></Notification>
+    {/if}
     <h1 class="title">
         Challenge #{currentRoute.namedParams.id} - {title}
     </h1>
