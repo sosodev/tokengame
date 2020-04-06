@@ -137,8 +137,8 @@
             }
         });
 
-        if (finished) {
-            score = Math.pow((initial_budget / budget), 20) - seconds;
+        if (passed) {
+            score = 10000 * (budget / initial_budget) - seconds * 4;
         }
 
         finished = passed;
@@ -147,10 +147,14 @@
     function submitHighscore() {
         fetch('/api/highscores/new', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            cache: 'no-cache',
             body: JSON.stringify({
                 nickname: nickname,
                 score: score,
-                challenge_id: currentRoute.namedParams.id,
+                challenge_id: Number(currentRoute.namedParams.id),
             }),
         }).then(resp => resp.json()).then(data => {
             window.location.href = '/leaderboards/' + data.challenge_id;
@@ -228,7 +232,7 @@
 <Modal bind:active="{finished}">
     <div class="card">
         <div class="card-content">
-            <h2 style="font-size: 1.75rem; font-weight: bold; white-space: nowrap;">
+            <h2 style="font-size: 1.5rem; font-weight: bold; white-space: nowrap;">
                 You finished the {title} challenge! 🎉
             </h2>
             <h3 class="subtitle">
@@ -241,7 +245,7 @@
                     </div>
                 </div>
             </div>
-            <button class="button is-warning" on:input={submitHighscore}>
+            <button class="button is-warning" on:click={submitHighscore}>
                 Post Highscore
             </button>
         </div>
