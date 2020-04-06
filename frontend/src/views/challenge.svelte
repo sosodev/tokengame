@@ -63,24 +63,13 @@
     $: searched_tokens = tokens.filter(el => el.includes(search_input));
 
     // split the tokens into subsections
-    let column_width = 6;
-    let columns = [];
+    let column = [];
     $: {
-        columns = [];
-        let column = [];
-        let j = 0;
+        column = [];
         for (let i = 0; i < searched_tokens.length; i++) {
             column.push(searched_tokens[i]);
-            if (j < column_width - 1) {
-                j++;
-            } else {
-                columns.push(column);
-                column = [];
-                j = 0;
-            }
         }
-        columns.push(column);
-        columns = columns;
+        column = column;
     }
 
     function forward() {
@@ -209,17 +198,15 @@
 <pre><code class="hljs javascript">{@html code}</code></pre>
     <div class="token-box has-background-light">
     <input class="input" type="text" placeholder="Search for a token" bind:value={search_input}>
-    {#each columns as column}
-        <div class="columns">
-            {#each column as token}
-                <div class="column">
-                    <Token cost="{calculateCost(token)}" on:click={() => useToken(token)}>
-                        {token}
-                    </Token>
-                </div>
-            {/each}
-        </div>
-    {/each}
+    <div class="columns is-centered is-mobile is-multiline">
+        {#each column as token}
+            <div class="column is-narrow">
+                <Token cost="{calculateCost(token)}" on:click={() => useToken(token)}>
+                    {token}
+                </Token>
+            </div>
+        {/each}
+    </div>
     </div>
     <button class="button is-warning is-large" on:click={runTests}>
         Submit
