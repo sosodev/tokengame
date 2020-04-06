@@ -171,11 +171,14 @@
     }
 
     input {
+        font-family: Consolas, monospace;
+        font-size: 1.2rem;
         margin-bottom: 1rem;
     }
 
     code {
-        font-size: .9rem;
+        font-family: Consolas, monospace;
+        font-size: 1.2rem;
     }
 
     .token-box {
