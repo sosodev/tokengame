@@ -67,14 +67,21 @@ func SeedChallenges(db *gorm.DB) error {
 			"function test1() { return JSON.stringify(bubble_sort([2, 3, 1])) === JSON.stringify([1, 2, 3]) }; test1();",
 		},
 	})
-
+	if db.Error != nil {
+		return err
+	}
 
 	db.Create(&Challenge{
 		Title: "Fibonacci Sequence",
-		Head:  `/*Write an algorithm that will generate the fibonacci numbers up to the nth number in the sequence. \n\n
-				ie. 0, 1, 1, 2, 3, 5, 8, ..., n.\n\n
-				Return the nth number. */function fib(num) {`,
-		Foot:  "return num; }",
+		Head: `/* Write an algorithm that will generate the fibonacci numbers up to the nth number in the sequence.
+
+
+ie. 0, 1, 1, 2, 3, 5, 8, ..., n.
+
+
+Return the nth number. */function fib(num) {
+`,
+		Foot: "return num; }",
 		Tokens: []string{
 			"return current",
 			"return 1;",
@@ -85,7 +92,7 @@ func SeedChallenges(db *gorm.DB) error {
 			"current = 0",
 			"var",
 			"temp",
-			"next", 
+			"next",
 			"current",
 			"if(",
 			"fib(",
