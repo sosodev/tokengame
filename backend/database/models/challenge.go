@@ -81,12 +81,13 @@ ie. 0, 1, 1, 2, 3, 5, 8, ..., n.
 
 Return the nth number. */function fib(n) {
 `,
-		Foot: "return num; }",
+		Foot: "}",
 		Tokens: []string{
 			"return current",
 			"return 1;",
-			"num >= 0",
-			"num <= 1",
+			"return ",
+			"n >= 0",
+			"n <= 1",
 			"while(",
 			"next = 1",
 			"current = 0",
@@ -96,8 +97,9 @@ Return the nth number. */function fib(n) {
 			"current",
 			"if(",
 			"fib(",
-			"--num",
-			"num--",
+			"--n",
+			"n--",
+			"n",
 			";",
 			")",
 			"{",
