@@ -8,11 +8,12 @@ import (
 // Challenge database model
 type Challenge struct {
 	gorm.Model
-	Title     string         `json:"title"`                                // Title of the challenge
-	Head      string         `json:"head"`                                 // Initial code block before the user's code (e.g. function declaration)
-	Foot      string         `json:"foot"`                                 // Code block after the user's code (e.g. return statement)
-	Tokens    pq.StringArray `json:"tokens" gorm:"type:varchar(100)[]"`    // The pool of tokens for the challenge
-	Testcases pq.StringArray `json:"testcases" gorm:"type:varchar(100)[]"` // A set of tests, as functions, to be run after the user's code, should return a boolean indicating success
+	Title      string         `json:"title"`                                 // Title of the challenge
+	Head       string         `json:"head"`                                  // Initial code block before the user's code (e.g. function declaration)
+	Foot       string         `json:"foot"`                                  // Code block after the user's code (e.g. return statement)
+	Tokens     pq.StringArray `json:"tokens" gorm:"type:varchar(1000)[]"`    // The pool of tokens for the challenge
+	Testcases  pq.StringArray `json:"testcases" gorm:"type:varchar(1000)[]"` // A set of tests, as functions, to be run after the user's code, should return a boolean indicating success
+	Highscores []Highscore    `json:"highscores"`
 }
 
 // SeedChallenges seeds the challenges table with some basic data
@@ -24,6 +25,7 @@ func SeedChallenges(db *gorm.DB) error {
 	if !gorm.IsRecordNotFoundError(err) {
 		return err // return the error if it's something other than record not found
 	}
+
 	if firstChallenge.Title != "" {
 		return nil // end execution if there is already challenge data
 	}
@@ -52,17 +54,76 @@ func SeedChallenges(db *gorm.DB) error {
 			"i",
 			"++",
 			"-",
-			"j",
 			")",
 			"1",
 			"}",
 			"{",
+			"<",
 			">",
 			";",
 			"=",
 		},
 		Testcases: []string{
-			"function test1() { return JSON.stringify(bubble_sort([2, 3, 1])) === JSON.stringify([1, 2, 3]) }",
+			"function test1() { return JSON.stringify(bubble_sort([2, 3, 1])) === JSON.stringify([1, 2, 3]) }; test1();",
+		},
+	})
+	if db.Error != nil {
+		return err
+	}
+
+	db.Create(&Challenge{
+		Title: "Fibonacci Sequence",
+		Head: `/* Write an algorithm that will generate the fibonacci numbers up to the nth number in the sequence.
+
+ie. 0, 1, 1, 2, 3, 5, 8, ..., n.
+
+Return the n index number, fib(4) should return 3
+*/function fib(n) {
+`,
+		Foot: "}",
+		Tokens: []string{
+			"return current",
+			"return n;",
+			"return ",
+			"n >= 0",
+			"n <= 1",
+			"while(",
+			"next = 1",
+			"current = 0",
+			"var",
+			"temp",
+			"next",
+			"current",
+			"if(",
+			"fib(",
+			"--n",
+			"n--",
+			"n",
+			";",
+			")",
+			"{",
+			"}",
+			"=",
+			"+",
+			"-1",
+			"-2",
+		},
+		Testcases: []string{
+			"function test1() { return fib(4) === 3};test1();",
+		},
+	})
+
+	db.Create(&Challenge{
+		Title: "Depth First Search",
+		Head: `/*Implement a Depth First Search algorithm to search a graph starting from a given node.
+Assume:
+Node class is passed and contains a value attribute which is a number and
+a connections attribute which is an array of Nodes*/function dfs(n) {`,
+		Foot: "}",
+		Tokens: []string{
+		},
+		Testcases: []string{
+			"function test1() { return fib(4) === 3};test1();",
 		},
 	})
 

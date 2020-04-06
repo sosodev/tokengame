@@ -8,6 +8,11 @@
     nav {
         max-width: 800px;
     }
+
+    .left-button {
+        margin-left: auto;
+        margin-right: 0;
+    }
 </style>
 
 <script>
@@ -34,6 +39,11 @@
                     {#each json.challenges as challenge}
                         <a class="panel-block" href="/challenges/{challenge.ID}">
                             #{challenge.ID} - {challenge.title}
+                            <span class="left-button">
+                                <a class="button is-info" href="/leaderboards/{challenge.ID}">
+                                    Leaderboards
+                                </a>
+                            </span>
                         </a>
                     {/each}
                 {:catch error}

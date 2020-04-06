@@ -19,7 +19,7 @@ func RunDatabaseMigrations() error {
 		return err
 	}
 
-	db.AutoMigrate(&models.Challenge{})
+	db.AutoMigrate(&models.Challenge{}, &models.Highscore{})
 	return nil
 }
 
