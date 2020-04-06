@@ -4,7 +4,7 @@
 
 <style>
     div {
-        min-width: 150px;
+        min-width: 50px;
         cursor: pointer;
     }
 </style>
