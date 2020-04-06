@@ -75,11 +75,10 @@ func SeedChallenges(db *gorm.DB) error {
 		Title: "Fibonacci Sequence",
 		Head: `/* Write an algorithm that will generate the fibonacci numbers up to the nth number in the sequence.
 
-
 ie. 0, 1, 1, 2, 3, 5, 8, ..., n.
 
-
-Return the nth number. */function fib(n) {
+Return the n index number, fib(4) should return 3
+*/function fib(n) {
 `,
 		Foot: "}",
 		Tokens: []string{
@@ -110,7 +109,7 @@ Return the nth number. */function fib(n) {
 			"-2",
 		},
 		Testcases: []string{
-			"function test1() { return fib(5) === 3};test1();",
+			"function test1() { return fib(4) === 3};test1();",
 		},
 	})
 
