@@ -116,7 +116,9 @@ Return the n index number, fib(4) should return 3
 	db.Create(&Challenge{
 		Title: "Depth First Search",
 		Head: `/*Implement a Depth First Search algorithm to search a graph starting from a given node.
-Assume Node class is passed and contains a value attribute which is a number and a connections attribute which is an array of Nodes*/function dfs(n) {`,
+Assume:
+Node class is passed and contains a value attribute which is a number and
+a connections attribute which is an array of Nodes*/function dfs(n) {`,
 		Foot: "}",
 		Tokens: []string{
 		},
