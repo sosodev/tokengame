@@ -207,7 +207,7 @@
     </h3>
     <hr/>
 <pre><code class="hljs javascript">{@html code}</code></pre>
-    <div class="token-box has-background-grey-light">
+    <div class="token-box has-background-light">
     <input class="input" type="text" placeholder="Search for a token" bind:value={search_input}>
     {#each columns as column}
         <div class="columns">
