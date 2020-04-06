@@ -79,7 +79,7 @@ func SeedChallenges(db *gorm.DB) error {
 ie. 0, 1, 1, 2, 3, 5, 8, ..., n.
 
 
-Return the nth number. */function fib(num) {
+Return the nth number. */function fib(n) {
 `,
 		Foot: "return num; }",
 		Tokens: []string{
