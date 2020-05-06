@@ -157,7 +157,7 @@
     </title>
 
     <link rel="stylesheet"
-          href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/school-book.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/school-book.min.css">
 </svelte:head>
 
 <style>
