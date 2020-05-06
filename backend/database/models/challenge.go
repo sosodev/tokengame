@@ -114,16 +114,40 @@ Return the n index number, fib(4) should return 3
 	})
 
 	db.Create(&Challenge{
-		Title: "Depth First Search",
-		Head: `/*Implement a Depth First Search algorithm to search a graph starting from a given node.
-Assume:
-Node class is passed and contains a value attribute which is a number and
-a connections attribute which is an array of Nodes*/function dfs(n) {`,
-		Foot: "}",
+		Title: "FizzBuzz",
+		Head: `/*Write a program that adds to the list the numbers from 1 to 100. 
+		But for multiples of three add "fizz" instead of the number 
+		and for the multiples of five add "buzz". 
+		For numbers which are multiples of both three and five add "fizzbuzz".*/
+		function fizzBuzz(out) {`,
+		Foot: "return out;\n}",
 		Tokens: []string{
+			"var i = 1;",
+			"for(;",
+			"100",
+			"99",
+			"<",
+			";",
+			"i++",
+			"<=",
+			"if(",
+			"%",
+			"==",
+			"&&",
+			"5",
+			"3",
+			")",
+			"else",
+			"i",
+			"out.push(\"fizzbuzz\");",
+			"out.push(\"fizz\");",
+			"out.push(\"buzz\");",
+			"out.push(i);",
+			"{",
+			"}",
 		},
 		Testcases: []string{
-			"function test1() { return fib(4) === 3};test1();",
+			"function test1() {var out=[];var i = 1;for (;i<=100;i++){if (i % 5 == 0 && i % 3 == 0){out.push(\"fizzbuzz\");}if (i % 3 == 0){out.push(\"fizz\");}else if (i % 5 == 0){out.push(\"buzz\");}else{out.push(i);}}var user_array =  fizzBuzz([]);if(user_array.length !== 99){return false;}else{for (i = 0; i < 100; i++){if(user_array[i] != out[i]){return false;}}return true;} }test1();",
 		},
 	})
 

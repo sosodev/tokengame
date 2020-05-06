@@ -21,8 +21,11 @@ Then when you need to rebuild you can just press ctrl+c, up-arrow, and enter.
 
 `docker-compose build && docker-compose up`
 
+if it is not updating use:
+`docker-compose rm -v && docker-compose build && docker-compose up`
+
 ## Seeing it in action
 
 navigate to `localhost:8080` in your browser
 
-this is test2 :heart:
+
