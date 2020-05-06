@@ -192,7 +192,7 @@
     <Notification text={failed_test_message}></Notification>
     {/if}
     <h1 class="title">
-        Challenge #{currentRoute.namedParams.id} - {title}
+        {title}
     </h1>
     <h3 class="subtitle">
         Budget: {budget}
