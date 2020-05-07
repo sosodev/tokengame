@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/tokengame/backend/challenge"
@@ -40,6 +42,20 @@ func main() {
 	api.GET("/highscores", highscore.GetHighscores)
 	api.POST("/highscores/new", highscore.PostHighscore)
 
+	// create the admin api route subgroup
+	admin := e.Group("admin")
+	// requests can only succeed when the user inputs the correct username and password
+	admin.Use(middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) {
+		if username == "admin" && password == "beargang" {
+			return true, nil
+		}
+
+		return false, nil
+	}))
+	admin.POST("/challenges", challenge.CreateChallenge) // POST /admin/challenges
+	admin.DELETE("/highscores/:id", highscore.RemoveHighscore)
+	admin.DELETE("/challenges/:id", challenge.DeleteChallenge)
+
 	// enable static asset serving on the server
 	// but also route 404's to index.html
 	e.Use(middleware.StaticWithConfig(middleware.StaticConfig{
@@ -49,5 +65,5 @@ func main() {
 	}))
 
 	// start the server
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }

@@ -2,6 +2,7 @@ package highscore
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/tokengame/backend/database"
@@ -53,4 +54,29 @@ func PostHighscore(c echo.Context) error {
 
 	// Return the new data as JSON for verification
 	return c.JSON(http.StatusOK, *highscore)
+}
+
+// RemoveHighscore deletes a highscore from the highscores table
+// requires the ID
+func RemoveHighscore(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+
+	db, err := database.GetDatabaseConnection()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	highscore := &models.Highscore{}
+	if err = db.First(highscore, id).Error; err != nil {
+		return err
+	}
+	if err = db.Delete(highscore).Error; err != nil {
+		return err
+	}
+
+	return c.String(http.StatusOK, "")
 }

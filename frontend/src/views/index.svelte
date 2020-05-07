@@ -13,6 +13,10 @@
         margin-left: auto;
         margin-right: 0;
     }
+
+    .panel {
+        margin: 0 auto;
+    }
 </style>
 
 <script>
@@ -24,8 +28,8 @@
 <section class="hero">
     <div class="hero-body">
         <div class="container">
-            <h1 class="title">
-                Token Tournament
+            <h1 class="title has-text-centered">
+               💪 Token Tournament 🖕
             </h1>
             <nav class="panel">
                 <p class="panel-heading">
@@ -36,9 +40,9 @@
                         Loading challenges...
                     </a>
                 {:then json}
-                    {#each json.challenges as challenge}
+                    {#each json.challenges as challenge, i}
                         <a class="panel-block" href="/challenges/{challenge.ID}">
-                            #{challenge.ID} - {challenge.title}
+                            #{i + 1} - {challenge.title}
                             <span class="left-button">
                                 <a class="button is-info" href="/leaderboards/{challenge.ID}">
                                     Leaderboards

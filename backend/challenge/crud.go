@@ -61,3 +61,50 @@ func GetChallenge(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, *challenge)
 }
+
+// CreateChallenge let's you create a challenge via the API
+func CreateChallenge(c echo.Context) error {
+	challenge := &models.Challenge{}
+	if err := c.Bind(challenge); err != nil {
+		return err
+	}
+
+	db, err := database.GetDatabaseConnection()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	db.Create(challenge)
+	if db.Error != nil {
+		return db.Error
+	}
+
+	return c.JSON(http.StatusOK, *challenge)
+}
+
+// DeleteChallenge let's you delete a challenge by ID
+func DeleteChallenge(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+
+	db, err := database.GetDatabaseConnection()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	// load the challenge by ID
+	challenge := &models.Challenge{}
+	if err = db.First(challenge, id).Error; err != nil {
+		return err
+	}
+	// delete it
+	if err = db.Delete(challenge).Error; err != nil {
+		return err
+	}
+
+	return c.String(http.StatusOK, "")
+}

@@ -112,6 +112,9 @@ Return the n index number, fib(4) should return 3
 			"function test1() { return fib(4) === 3};test1();",
 		},
 	})
+	if db.Error != nil {
+		return err
+	}
 
 	db.Create(&Challenge{
 		Title: "FizzBuzz",

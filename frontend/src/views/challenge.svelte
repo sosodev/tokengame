@@ -157,7 +157,7 @@
     </title>
 
     <link rel="stylesheet"
-          href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/school-book.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/school-book.min.css">
 </svelte:head>
 
 <style>
@@ -192,7 +192,7 @@
     <Notification text={failed_test_message}></Notification>
     {/if}
     <h1 class="title">
-        Challenge #{currentRoute.namedParams.id} - {title}
+        {title}
     </h1>
     <h3 class="subtitle">
         Budget: {budget}

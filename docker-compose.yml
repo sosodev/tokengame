@@ -7,6 +7,9 @@ services:
         restart: always
         depends_on: 
             - database
+        environment:
+            PORT: 8080
+            DATABASE_URL: "host=database port=5432 user=postgres dbname=postgres password=TokenTournamentSecretPW sslmode=disable"
     database:
         image: postgres
         restart: always

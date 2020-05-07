@@ -1,6 +1,8 @@
 package database
 
 import (
+	"os"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // enables the use of Postgresql with Gorm
 	"github.com/tokengame/backend/database/models"
@@ -8,7 +10,7 @@ import (
 
 // GetDatabaseConnection returns a gorm.DB pointer or error if one occurred
 func GetDatabaseConnection() (*gorm.DB, error) {
-	return gorm.Open("postgres", "host=database port=5432 user=postgres password=TokenTournamentSecretPW dbname=postgres sslmode=disable")
+	return gorm.Open("postgres", os.Getenv("DATABASE_URL"))
 }
 
 // RunDatabaseMigrations run's GORM automigrations on the database models
