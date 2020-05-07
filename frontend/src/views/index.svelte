@@ -29,7 +29,7 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title has-text-centered">
-               💪 Token Tournament 🖕
+               💪 Token Tournament 🥇
             </h1>
             <nav class="panel">
                 <p class="panel-heading">
