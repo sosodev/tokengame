@@ -139,6 +139,7 @@ Return the n index number, fib(4) should return 3
 			"&&",
 			"5",
 			"3",
+			"0",
 			")",
 			"else",
 			"i",
@@ -288,7 +289,6 @@ How many essentially distinct colourings are there with 10 different colours ava
 			"function test1() {return false;} test1();",
 		},
 	})
-
 
 	return db.Error
 }

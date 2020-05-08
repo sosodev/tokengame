@@ -33,7 +33,6 @@
             if (event.keyCode === 13) {
                 if (searched_tokens.length === 1) {
                     useToken(searched_tokens[0]);
-                    search_input = "";
                 }
             }
         });
@@ -98,7 +97,7 @@
             token: token,
         })
 
-        user_code += token;
+        user_code += token + " ";
         budget -= calculateCost(token);
     }
 
