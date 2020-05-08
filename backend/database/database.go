@@ -38,5 +38,10 @@ func SeedDatabase() error {
 		return err
 	}
 
+	err = models.SeedHighscores(db)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
