@@ -23,7 +23,7 @@ func GetHighscores(c echo.Context) error {
 	defer db.Close()
 
 	var highscores []models.Highscore
-	if err = db.Find(&highscores).Error; err != nil {
+	if err = db.Order("score desc").Find(&highscores).Error; err != nil {
 		return err
 	}
 
