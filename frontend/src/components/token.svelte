@@ -7,7 +7,8 @@
         min-width: 50px;
         cursor: pointer;
         font-family: Consolas, monospace;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        border-top: none;
     }
 </style>
 

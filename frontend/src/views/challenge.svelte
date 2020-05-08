@@ -163,31 +163,57 @@
 <style>
     h1 {
         margin-top: 1rem;
-        font-size: 1.7rem;
+        font-size: 2rem;
     }
 
     pre {
-        font-size: 1.2rem;
-    }
-
-    input {
-        font-family: Consolas, monospace;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
+        padding: 0;
     }
 
     code {
         font-family: Consolas, monospace;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        border: 1px solid lightgray;
     }
+
+    .title-container {
+        padding: 1rem 0;
+    }
+
+    @media (max-width: 1024px) {
+        pre {
+            font-size: 1rem;
+        }
+
+        code {
+            font-size: 1rem;
+        }
+
+        .title-container {
+            padding: 0 1rem;
+        }
+
+        .button-container {
+            padding-left: 1rem;
+            padding-bottom: 1rem;
+        }
+    }
+
+    input {
+        font-family: Consolas, monospace;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
 
     .token-box {
         padding: 1rem;
         margin-bottom: 1rem;
+        border: 1px solid lightgray;
     }
 </style>
 
-<div class="container" style="padding: 1rem;">
+<div class="container title-container">
     {#if failed_test !== ""}
     <Notification text={failed_test_message}></Notification>
     {/if}
@@ -198,6 +224,8 @@
         Budget: {budget}
     </h3>
     <hr/>
+</div>
+<div class="container">
 <pre><code class="hljs javascript">{@html code}</code></pre>
     <div class="token-box has-background-light">
     <input class="input" type="text" placeholder="Search for a token" bind:value={search_input}>
@@ -211,6 +239,8 @@
         {/each}
     </div>
     </div>
+</div>
+<div class="container button-container">
     <button class="button is-warning is-large" on:click={runTests}>
         Submit
     </button>
