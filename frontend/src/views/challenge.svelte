@@ -91,6 +91,8 @@
     }
 
     function useToken(token) {
+        search_input = "";
+
         move_stack.push({
             code: user_code,
             token: token,
