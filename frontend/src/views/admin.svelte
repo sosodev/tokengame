@@ -21,14 +21,13 @@
 <style>
     .card {
         margin: 1rem auto;
-        max-width: 40%;
     }
 </style>
 
 <div class="container">
     <div class="card">
         <div class="card-content">
-            <h1 class="title">  
+            <h1 class="title has-text-centered">  
                 The Back Panel
             </h1>
            {#await challenges}
