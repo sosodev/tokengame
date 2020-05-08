@@ -11,19 +11,6 @@
             <a class="navbar-item" href="/">
                 Token Tournament
             </a>
-
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="{expanded}" on:click={() => expanded = !expanded}>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-        <div class="navbar-menu" class:is-active={expanded}>
-            <div class="navbar-start">
-                <a class="navbar-item" href="/">
-                    Home
-                </a>
-            </div>
         </div>
     </div>
 </nav>
