@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/jinzhu/gorm"
 	"github.com/tokengame/backend/database/models"
 
 	"github.com/labstack/echo/v4"
@@ -55,7 +56,9 @@ func GetChallenge(c echo.Context) error {
 
 	challenge := &models.Challenge{}
 	// Get the first challenge with the matching ID
-	if err = db.Preload("Highscores").First(challenge, id).Error; err != nil {
+	if err = db.Preload("Highscores", func(db *gorm.DB) *gorm.DB {
+		return db.Order("highscores.score DESC")
+	}).First(challenge, id).Error; err != nil {
 		return err
 	}
 
