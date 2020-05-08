@@ -17,6 +17,12 @@
     .panel {
         margin: 0 auto;
     }
+
+    @media (max-width: 1024px) {
+        .title {
+            font-size: 1.5rem;
+        }
+    }
 </style>
 
 <script>
